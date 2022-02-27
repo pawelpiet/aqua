@@ -1,0 +1,134 @@
+<!DOCTYPE html> 
+<html lang="pl-PL">
+    
+<head>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/styleForm.css"/>
+    <script  type="application/javascript" src="../js/validationCommon.js"></script>
+    <script  type="application/javascript" src="../js/validationCommonService.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQUA Services</title>
+</head>
+
+<body>
+    <header>
+    
+        <h1>AQUA</h1>
+        <img src="/images/octopus.png" class="logoheader"alt="AQUA Logo">
+    </header>
+
+    <nav>
+        <ul>  
+            <li><a href="/">Strona Główna</a></li>
+            <li><a href="/employees">Pracownicy</a></li>
+            <li><a href="/services" class="active">Usługi</a></li>
+            <li><a href="/clients" >Klienci</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <script  type="application/javascript" src="../../../public/js/validationCommonService.js"></script>
+        <h2><%= pageTitle %> </h2>
+        
+        <form class="form" method="post" action="<%=formAction%>" novalidate  onsubmit="return validateForm();">
+                
+             
+             <input type="hidden" name="_id" value="<%= ser._id %>">
+
+             <label for="employee">Pracownik:<sup>*</sup></label>
+             <select id="employee" name="emp_id" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
+                <option value="" selected>--- Wybierz pracownika ---</option>
+                <% for (let i=0; i<allEmps.length; i++) { let emp = allEmps[i]; %>
+                    <option value="<%= emp._id %>" label="<%= emp.firstName + ' ' + emp.lastName %>"
+                        <%= (ser._id && emp._id.toString() == ser.employee._id.toString()) ? 'selected' : ''%>></option>
+                <% } %>
+             </select>
+                    <span id="errorPracownik" class="errors-text"></span>
+                 
+                
+
+                    <label for="client">Klient:<sup>*</sup></label>
+                    <select id="client" name="clt_id" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
+                        <option value="" selected>--- Wybierz klienta ---</option>
+                        <% for (let i=0; i<allClts.length; i++) { let clt = allClts[i]; %>
+                            <option value="<%= clt._id %>" label="<%= clt.firstName + ' ' + clt.lastName %>"
+                                <%= (ser._id && clt._id.toString() == ser.client._id.toString()) ? 'selected' : ''%>></option>
+                        <% } %>
+                    </select>
+                <span id="errorKlient" class="errors-text"></span>
+
+            
+
+                
+                    <label for="date">Data:<sup>*</sup></label>
+                    <input type="date" name="date" id="date" placeholder="np. 03-11-2020"
+                    value="<%= ser.date %>" 
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %> 
+                    class="<%= validationErrors.find(e=> e.path.includes('lastName')) ? 'error-input' : '' %>" />
+                    <span id="errorData" class="errors-date">
+                        <% if(validationErrors.find(e=>e.path.includes('lastName'))){ %>
+                            <%= validationErrors.find(e=> e.path.includes('lastName')).message %>
+                        <% } %>
+                    </span>
+                
+
+                
+                    <label for="opis">Opis:<sup>*</sup></label>
+                    <input type="text" name="opis" id="opis" placeholder="np. Wymiana filtra"
+                    value="<%= ser.opis %>" 
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %> 
+                    class="<%= validationErrors.find(e=> e.path.includes('lastName')) ? 'error-input' : '' %>" />
+                    <span id="errorOpis" class="errors-text">
+                        <% if(validationErrors.find(e=>e.path.includes('lastName'))){ %>
+                            <%= validationErrors.find(e=> e.path.includes('lastName')).message %>
+                        <% } %>
+                    </span>
+            
+
+
+
+                
+                    <label for="cena">Cena:<sup>*</sup></label>
+                    <input type="number" name="cena" id="cena" placeholder="cena usługi w PLN"
+                    value="<%= ser.cena %>" 
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %> 
+                    class="<%= validationErrors.find(e=> e.path.includes('lastName')) ? 'error-input' : '' %>" />
+                    <span id="errorCena" class="errors-number">
+                        <% if(validationErrors.find(e=>e.path.includes('lastName'))){ %>
+                            <%= validationErrors.find(e=> e.path.includes('lastName')).message %>
+                        <% } %>
+                    </span>
+                
+                    <% if (formMode == 'showDetails') { %>
+                        <div class="list-action">
+                        <a href="/services/edit/<%= ser._id %>" class="list-action-button-edit">Edytuj</a>
+                        </div>
+                        <% } %>
+
+                        
+
+
+                <div class="from-buttons">
+                    <p id="errorSummary" class="errors-text"></p>
+                <% if (formMode != 'showDetails') { %>
+                <input class="form-button-submit" type="submit" value= "<%=btnLabel%>"/>
+                <a href="/services" class="form-button-cancel">Anuluj</a>
+                <% } else { %> 
+                <a class="form-button-cancel" href="/services">Powrót</a>
+                <% } %>
+                </div>
+
+            </form>
+
+        
+
+    </main>
+    <footer>
+        Paweł Pietrzak, s18793
+    </footer>
+
+
+</body>
+
+</html>

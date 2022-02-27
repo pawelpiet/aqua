@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+    
+<head>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../../../css/styleForm.css"/>
+    <script  type="application/javascript" src="../js/validationCommon.js"></script>
+    <script  type="application/javascript" src="../js/validationCommonClient.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQUA Services</title>
+</head>
+
+<body>
+    <header>
+    
+        <h1>AQUA</h1>
+        <img src="/images/octopus.png" class="logoheader"alt="AQUA Logo">
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/">Strona Główna</a></li>
+            <li><a href="/employees">Pracownicy</a></li>
+            <li><a href="/services">Usługi</a></li>
+            <li><a href="/clients" class="active">Klienci</a></li>
+
+        </ul>
+    </nav>
+
+    <main>
+        <script  type="application/javascript" src="../js/validationCommonClient.js"></script>
+        <h2><%= pageTitle %></h2>
+
+            <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit ="return validateForm();">
+                
+                    
+                    <input type="hidden" name="_id" value="<%= clt._id %>">
+                
+                    <label for="firstName">Imię:<abbr title="required">*</abbr></label>
+                    <input type="text" name="firstName" id="firstName" placeholder="2-50 znaków"
+                    value="<%= clt.firstName %>" 
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+                    class="<%= validationErrors.find(e=> e.path.includes('firstName')) ? 'error-input' : '' %>" />
+                    <span id="errorImie" class="errors-text">
+                        <% if(validationErrors.find(e=>e.path.includes('firstName'))){ %>
+                            <%= validationErrors.find(e=> e.path.includes('firstName')).message %>
+                        <% } %>
+                    </span>
+                
+
+                
+                    <label for="lastName">Nazwisko:<abbr title="required" >*</abbr></label>
+                    <input type="text" name="lastName" id="lastName" placeholder="2-60 znaków"
+                    value="<%= clt.lastName %>" 
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+                    class="<%= validationErrors.find(e=> e.path.includes('lastName')) ? 'error-input' : '' %>" />
+                    <span id="errorNazwisko" class="errors-text">
+                        <% if(validationErrors.find(e=>e.path.includes('lastName'))){ %>
+                            <%= validationErrors.find(e=> e.path.includes('lastName')).message %>
+                        <% } %>
+                    </span>
+
+                
+                    <label for="typAkwarium">Typ akwarium:<abbr title="required" >*</abbr></label>
+                    <input type="text" name="typAkwarium" id="typAkwarium" placeholder="np. SłodkoWodne"
+                    value="<%= clt.typAkwarium %>" 
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+                    class="<%= validationErrors.find(e=> e.path.includes('typAkwarium')) ? 'error-input' : '' %>" />
+                    <span id="errorTypAkwarium" class="errors-text">
+                        <% if(validationErrors.find(e=>e.path.includes('typAkwarium'))){ %>
+                            <%= validationErrors.find(e=> e.path.includes('typAkwarium')).message %>
+                        <% } %>
+                    </span>
+                
+
+                
+                    <label for="iloscLitrow">Ilość litrów:<abbr title="required" >*</abbr></label>
+                    <input type="number" name="iloscLitrow" id="iloscLitrow" placeholder="np. 112 (litrów)"
+                    value="<%= clt.iloscLitrow %>" 
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+                    class="<%= validationErrors.find(e=> e.path.includes('iloscLitrow')) ? 'error-input' : '' %>" />
+                    <span id="errorIloscLitrow" class="errors-number">
+                        <% if(validationErrors.find(e=>e.path.includes('iloscLitrow'))){ %>
+                            <%= validationErrors.find(e=> e.path.includes('iloscLitrow')).message %>
+                        <% } %>
+                    </span>
+                
+                
+                    <label for="iloscRyb">Ilość ryb:<abbr title="required" >*</abbr></label>
+                    <input type="number" name="iloscRyb" id="iloscRyb" placeholder="np. 50 (ryb)"
+                    value="<%= clt.iloscRyb %>" 
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+                    class="<%= validationErrors.find(e=> e.path.includes('iloscRyb')) ? 'error-input' : '' %>" />
+                    <span id="errorIloscRyb" class="errors-number">
+                        <% if(validationErrors.find(e=>e.path.includes('iloscRyb'))){ %>
+                            <%= validationErrors.find(e=> e.path.includes('iloscRyb')).message %>
+                        <% } %>
+                    </span>
+                
+
+                    <% if (formMode == 'showDetails') { %>
+                        <div class="list-action">
+                        <a href="/clients/edit/<%= clt._id %>" class="list-action-button-edit">Edytuj</a>
+                        </div>
+                        <% } %>
+
+                        <% if (formMode == 'showDetails') { %>
+                            <h3>
+                                Szczegóły zamówionych usług
+                            </h3>
+                            <table class="table-list">
+                                <thead>
+                                <tr>
+                                    <th>Id Usługi</th>
+                                    <th>Opis</th>
+                                    <th>Data</th>
+                                    <th>Pracownik</th>
+                                    <th>Cena</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% for (let c of clt.services) { %>
+                                    <tr>
+                                        <td><%= c._id %></td>
+                                        <td><%= c.opis%></td>
+                                        <td><%= c.date.toISOString().split('T')[0] %></td>
+                                        <td><%= c.employee.firstName%> <%= c.employee.lastName %></td>
+                                        <td><%= c.cena %></td>
+                                    </tr>
+                                <% } %>
+                                </tbody>
+                            </table>
+                            <% } %>
+                            
+                            
+                                        <div class="from-buttons">
+                                            <p id="errorSummary" class="errors-text"></p>
+                                            <% if (formMode != 'showDetails') { %>
+                                            <input class="form-button-submit" type="submit" value= "<%=btnLabel%>"/>
+                                            <a href="/clients" class="form-button-cancel">Anuluj</a>
+                                            <% } else { %> 
+                                            <a class="form-button-cancel" href="/clients">Powrót</a>
+                                            <% } %>
+                                     
+                                     
+                                        </div>
+                            
+                                    </form>
+                            
+                                    
+                            
+                                </main>
+                                <footer>
+                                    Paweł Pietrzak, s18793
+                                </footer>
+
+</body>
+
+</html>

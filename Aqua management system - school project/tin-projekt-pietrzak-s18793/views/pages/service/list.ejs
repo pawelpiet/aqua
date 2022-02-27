@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+    
+<head>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQUA Services</title>
+</head>
+
+<body>
+    <header>
+        
+        
+        <h1>AQUA</h1>
+        <img src="/images/octopus.png" class="logoheader" alt="AQUA Logo">
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/">Strona Główna</a></li>
+            <li><a href="/employees">Pracownicy</a></li>
+            <li><a href="/services" class="active">Usługi</a></li>
+            <li><a href="/clients" >Klienci</a></li>
+
+        </ul>
+    </nav> 
+
+    <main>
+        <h2>Lista usług</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>IdUsługi</th>
+                    <th>Pracownik</th>
+                    
+
+                    <th>Klient</th>
+                    
+                    <th>Data</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let ser of sers) { %>
+                    <tr>
+                        <td><%= ser._id %></td>
+                        <td><%= ser.employee.firstName %> <%= ser.employee.lastName %></td>
+                        <td><%= ser.client.firstName %> <%= ser.client.lastName %></td>
+                  
+                        <td><%= ser.date.toISOString().split('T')[0] %></td>
+                        <td>
+                            <ul class="list-action"> 
+                                <li>
+                                    <a href="services/details/<%=ser._id%>" class="list-action-button-details">Szczegóły</a>
+                                </li>
+                                <li>
+                                    <a href="services/edit/<%=ser._id%>" class="list-action-button-edit" >Edytuj</a>
+                                </li>
+                                <li>
+                                    <a href="services/delete/<%=ser._id%>" class="list-action-button-delete">Usuń</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <p><a href="services/add" class="button-add">Dodaj nową usługe</a></p>
+
+    </main>
+    <footer>
+        Paweł Pietrzak, s18793
+    </footer>
+
+</body>
+
+</html>

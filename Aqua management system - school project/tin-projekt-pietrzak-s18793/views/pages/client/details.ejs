@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+    
+<head>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQUA Services</title>
+</head>
+
+<body>
+    <header>
+    
+        <h1>AQUA</h1>
+        <img src="/images/octopus.png" class="logoheader"alt="AQUA Logo">
+    </header>
+  
+    <nav>
+        <ul>
+            <li><a href="/">Strona Główna</a></li>
+            <li><a href="employees">Pracownicy</a></li>
+            <li><a href="services">Usługi</a></li>
+            <li><a href="clients" class="active">Klienci</a></li>
+
+        </ul>
+    </nav>
+
+    <main>
+        <h2>Szczegóły Klienta</h2>
+        
+
+        <form class="form">
+           
+                <label for="IdPracownika">IdKlienta:<sup>*</sup></label>
+                <input type="number" name="IdPracownika" value="1" id="IdPracownika" disabled />
+            
+                <label for="Imie">Imię:<sup>*</sup></label>
+                <input type="text" name="Imie" value="Paweł" id="Imie" disabled/>
+            
+                <label for="Nazwisko">Nazwisko:<sup>*</sup></label>
+                <input type="text" name="Nazwisko" value="Pietrzak" id="Nazwisko" disabled/>
+            
+                <label for="E-mail">Staż:<sup>*</sup></label>
+                <input type="text" name="E-mail" value="pawelkok@gmail.com" id="E-mail" disabled/>
+
+                <label for="TypAkwarium">Typ akwarium:<sup>*</sup></label>
+                <input type="text" name="TypAkwarium" value="Słodkowodne" id="TypAkwarium" disabled/>
+
+                <label for="IloscLitrow">Litraż:<sup>*</sup></label>
+                <input type="number" name="IloscLitrow" value="112" id="IloscLitrow" disabled/>
+                
+                <label for="IloscRyb">Przybliżona ilość ryb:<sup>*</sup></label>
+                <input type="number" name="IloscRyb" value="35" id="IloscRyb" disabled/>
+
+            <div class="from-buttons">
+                 <a href="client-form.html" class="form-button-submit">Edytuj</a> 
+                
+            </div>
+        </form>
+            <h2> Szczegóły usług wykonanych dla klienta </h2>
+
+            <table >
+                <thead>
+                    <tr>
+                        
+                        <th>Id Usługi</th>
+                        <th>Opis</th>
+                        <th>Data</th>
+                        <th>Pracownik</th>
+                        <th>Cena</th>
+    
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Wymiana Filtra</td>
+                        <td>2020-02-11</td>
+                        <td>Paweł Pietrzak</td>
+                        <td>100zł</td>
+                       
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Założenie akwarium</td>
+                        <td>2020-03-01</td>
+                        <td>Jan Kowalski</td>
+                        <td>200zł</td>
+                       
+                    </tr>
+    
+    
+                   
+                </tbody>
+
+            </table> 
+            <a href="client-list.html" class="form-button-cancel">Powrót</a>
+        
+
+        
+
+    </main>
+    <footer>
+        Paweł Pietrzak, s18793
+    </footer>
+
+
+</body>
+
+</html>

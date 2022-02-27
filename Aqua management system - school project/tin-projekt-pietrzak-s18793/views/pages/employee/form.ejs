@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+    
+<head>
+    
+    <link rel="stylesheet" href="../../../css/styleForm.css"/>
+    
+    <script  type="application/javascript" src="../js/validationCommon.js"></script>
+    <script  type="application/javascript" src="../js/validationCommonEmployee.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQUA Services</title>
+</head>
+
+<body>
+    <header>
+        
+        <h1>AQUA</h1>
+        <img src="/images/octopus.png" class="logoheader" alt="AQUA Logo">
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/">Strona Główna</a></li>
+            <li><a href="/employees" class="active">Pracownicy</a></li>
+            <li><a href="/services">Usługi</a></li>
+            <li><a href="/clients" >Klienci</a></li>
+
+        </ul>
+    </nav>
+
+    <main>
+        <script  type="application/javascript" src="../../../public//js/validationCommon.js"></script>
+    <script  type="application/javascript" src="../../../public/js/validationCommonEmployee.js"></script>
+       
+        <h2><%= pageTitle %></h2>
+        
+
+        <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
+            
+                <input type="hidden" name="_id" value="<%= emp._id %>">
+            
+                <label for="firstName">Imię:<abbr title="required">*</abbr></label>
+                <input type="text" name="firstName" id="firstName" placeholder="2-40 znaków" value="<%= emp.firstName %>" 
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+                class="<%= validationErrors.find(e=> e.path.includes('firstName')) ? 'error-input' : '' %>" />
+                <span id="errorImie" class="errors-text">
+                    <% if(validationErrors.find(e=>e.path.includes('firstName'))){ %>
+                    <%= validationErrors.find(e=> e.path.includes('firstName')).message %>
+                <% } %>
+                </span>
+
+            
+                <label for="lastName">Nazwisko:<abbr title="required">*</abbr></label>
+                <input type="text" name="lastName" id="lastName" placeholder="2-50 znaków"
+                value="<%= emp.lastName %>" 
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+                class="<%= validationErrors.find(e=> e.path.includes('lastName')) ? 'error-input' : '' %>" />
+                <span id="errorNazwisko" class="errors-text">
+                    <% if(validationErrors.find(e=>e.path.includes('lastName'))){ %>
+                        <%= validationErrors.find(e=> e.path.includes('lastName')).message %>
+                    <% } %>
+                </span>
+
+            
+                <label for="staz">Staż:<abbr title="required">*</abbr></label>
+                <input type="text" name="staz" id="staz" placeholder="np. dwa lata, trzy miesiące" 
+                value="<%= emp.staz %>" 
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+                class="<%= validationErrors.find(e=> e.path.includes('staz')) ? 'error-input' : '' %>" />
+                <span id="errorStaz" class="errors-text">
+                    <% if(validationErrors.find(e=>e.path.includes('staz'))){ %>
+                        <%= validationErrors.find(e=> e.path.includes('staz')).message %>
+                    <% } %>
+                </span>
+
+
+
+
+                <label for="email">E-mail:<abbr title="required" >*</abbr></label>
+                <input type="text" name="email" id="email" placeholder="adres email @" 
+                value="<%= emp.email %>" 
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+                class="<%= validationErrors.find(e=> e.path.includes('email')) ? 'error-input' : '' %>" />
+                <span id="errorEmail" class="errors-text">
+                    <% if(validationErrors.find(e=>e.path.includes('email'))){ %>
+                        <%= validationErrors.find(e=> e.path.includes('email')).message %>
+                    <% } %>
+                </span>
+
+
+
+
+
+                <% if (formMode == 'showDetails') { %>
+                <div class="list-action">
+                <a href="/employees/edit/<%= emp._id %>" class="form-button-submit">Edytuj</a>
+                </div>
+                <% } %>
+
+        
+
+                <% if (formMode == 'showDetails' ) { %>
+
+
+
+                    <h3>
+    Szczegóły wykonanych usług
+</h3>
+<table class="table-list">
+    <thead>
+    <tr>
+        <th>Id Usługi</th>
+        <th>Opis</th>
+        <th>Data</th>
+        <th>Klient</th>
+        <th>Cena</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% for (let e of emp.services) { %>
+        <tr>
+            <td><%= e._id %></td>
+            <td><%= e.opis%></td>
+            <td><%= e.date.toISOString().split('T')[0] %></td>
+            <td><%= e.client.firstName%> <%= e.client.lastName %></td>
+            <td><%= e.cena %></td>
+        </tr>
+    <% } %>
+    </tbody>
+</table>
+<% } %>
+
+
+            <div class="from-buttons" >
+                <p id="errorSummary" class="errors-text"></p>
+                <% if (formMode != 'showDetails') { %>
+                <input class="form-button-submit" type="submit" value= "<%=btnLabel%>" />
+                <a href="/employees" class="form-button-cancel">Anuluj</a>
+                <% } else { %> 
+                <a class="form-button-cancel" href="/employees">Powrót</a>
+                <% } %>
+         
+         
+            </div>
+
+        </form>
+
+        
+
+    </main>
+    <footer>
+        Paweł Pietrzak, s18793
+    </footer>
+
+
+</body>
+
+</html>
+

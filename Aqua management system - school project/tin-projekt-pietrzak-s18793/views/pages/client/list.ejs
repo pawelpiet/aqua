@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+    
+<head>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQUA Services</title>
+</head>
+
+<body>
+    <header>
+    
+        <h1>AQUA</h1>
+        <img src="/images/octopus.png" class="logoheader"alt="AQUA Logo">
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/">Strona Główna</a></li>
+            <li><a href="employees">Pracownicy</a></li>
+            <li><a href="services">Usługi</a></li>
+            <li><a href="clients" class="active">Klienci</a></li>
+
+        </ul>
+    </nav>
+
+    <main>
+        <h2>Lista Klientów</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Imię</th>
+                    <th>Naziwsko</th>
+                    <th>Typ Akwarium</th>
+                    <th> </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let clt of clts) { %>
+                    <tr>
+                        <td><%= clt.firstName %></td>
+                        <td><%= clt.lastName %></td>
+                        <td><%= clt.typAkwarium %></td>
+                        
+                        <td>
+                            <ul class="list-action"> 
+                                <li>
+                                    <a href="/clients/details/<%=clt._id%>" class="list-action-button-details">Szczegóły</a>
+                                </li>
+                                <li>
+                                    <a href="/clients/edit/<%=clt._id%>" class="list-action-button-edit" >Edytuj</a>
+                                </li>
+                                <li>
+                                    <a href="/clients/delete/<%=clt._id%>" class="list-action-button-delete">Usuń</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <p><a href="clients/add" class="button-add">Dodaj nowego klienta</a></p>
+
+    </main>
+    <footer>
+        Paweł Pietrzak, s18793
+    </footer>
+
+
+</body>
+
+</html>
